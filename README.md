@@ -1,6 +1,6 @@
-# Robot Fleet Dashboard
+# RoboTrack
 
-A web-based dashboard for monitoring and managing a fleet of robots.
+A web-based dashboard for monitoring and managing a group of robots.
 
 This project is being developed as a robotics + software application to explore how robot fleet management systems can be built using web technologies, APIs, and eventually real-time robot data.
 
@@ -82,7 +82,7 @@ The robot data is currently simulated and is not connected to physical robots.
 ## Project Structure
 
 ```text
-robot-fleet-dashboard/
+RoboTrack/
 │
 ├── backend/
 │   ├── server.js
@@ -104,7 +104,7 @@ robot-fleet-dashboard/
 
 ```bash
 git clone <your-repository-url>
-cd robot-fleet-dashboard
+cd RoboTrack
 ```
 
 ### 2. Install backend dependencies
