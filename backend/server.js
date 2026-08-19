@@ -1,38 +1,46 @@
 const express = require("express");
+const mongoose = require("mongoose");
+require("dotenv").config();
 
 const app = express();
 
 const PORT = 5000;
 
+// Robot schema
+const robotSchema = new mongoose.Schema({
+    id: String,
+    name: String,
+    status: String,
+    battery: Number
+});
+
+// Robot model
+const Robot = mongoose.model("Robot", robotSchema);
+
+// Home route
 app.get("/", (req, res) => {
-    res.send("Robot Fleet API is running!");
+    res.send("RoboTrack API is running!");
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+// Get all robots
+app.get("/api/robots", async (req, res) => {
+    try {
+        const robots = await Robot.find();
+        res.json(robots);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 });
 
-app.get("/api/robots", (req, res) => {
-    const robots = [
-        {
-            id: "R001",
-            name: "Warehouse Bot 01",
-            status: "Active",
-            battery: 85
-        },
-        {
-            id: "R002",
-            name: "Warehouse Bot 02",
-            status: "Charging",
-            battery: 42
-        },
-        {
-            id: "R003",
-            name: "Delivery Drone 01",
-            status: "Offline",
-            battery: 89
-        }
-    ];
+// Connect to MongoDB
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => {
+        console.log("Connected to MongoDB Atlas");
 
-    res.json(robots);
-});
+        app.listen(PORT, () => {
+            console.log(`Server running on http://localhost:${PORT}`);
+        });
+    })
+    .catch((error) => {
+        console.error("MongoDB connection failed:", error.message);
+    });
