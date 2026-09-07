@@ -1,203 +1,328 @@
 # RoboTrack
 
-A web-based dashboard for monitoring and managing a group of robots.
+A web-based dashboard for monitoring and managing a fleet of robots.
 
-This project is being developed as a robotics + software application to explore how robot fleet management systems can be built using web technologies, APIs, and eventually real-time robot data.
+RoboTrack is a full-stack robotics and software project designed to explore how robot fleet management systems can be built using modern web technologies, REST APIs, databases, and eventually real-time robot data.
+
+---
 
 ## Current Status
 
-**Stage:** Backend API working with simulated robot data
+**Stage:** React Dashboard UI + MongoDB-backed REST API
 
-The backend server is currently running successfully and provides robot information through a REST API.
+The backend server is running successfully and provides robot information through a REST API.
+
+Robot data is stored in MongoDB and can be viewed through MongoDB Compass.
+
+The React frontend has been initialized using Vite and currently contains the main RoboTrack dashboard layout and navigation interface.
+
+The frontend and backend are currently being developed separately. The next major step is connecting the React dashboard to the backend API so that robot information is retrieved dynamically from MongoDB.
+
+---
 
 ## Features
 
 ### Currently Implemented
 
-* Node.js backend
-* Express.js server
-* REST API for robot data
-* Simulated robot fleet data
-* Robot status monitoring
-* Battery level information
-* Multiple robots/bots in the fleet
-* Git and GitHub version control
+- Node.js backend
+- Express.js server
+- REST API for robot data
+- MongoDB database integration
+- Mongoose data management
+- MongoDB Compass for database management
+- Simulated robot fleet data
+- Robot status monitoring
+- Battery level information
+- Multiple robots/bots in the fleet
+- React + Vite frontend
+- RoboTrack dashboard interface
+- Dashboard sidebar navigation
+- Fleet command-center layout
+- System online status indicator
+- Lucide React icons
+- Git and GitHub version control
 
 ### Planned Features
 
-* React-based dashboard
-* MongoDB database integration
-* Add, update, and remove robots
-* Real-time robot status updates
-* Robot location tracking
-* Fleet statistics and analytics
-* Robot activity logs
-* Python-based robot simulation
-* Socket.IO for real-time communication
-* Improved UI and dashboard visualizations
+- Connect React frontend to backend API
+- Display live MongoDB robot data in the dashboard
+- Add new robots through the frontend
+- Update robot information
+- Remove robots
+- Robot location tracking
+- Fleet statistics and analytics
+- Robot activity logs
+- Real-time robot status updates
+- Socket.IO integration
+- Python-based robot simulation
+- Responsive dashboard design
+- Data visualization
+- Integration with real robot/IoT data
+- Deployment
 
-## Current Robot Fleet
+---
 
-| ID   | Robot             | Status   | Battery |
-| ---- | ----------------- | -------- | ------: |
-| R001 | Warehouse Bot 01  | Active   |     85% |
-| R002 | Warehouse Bot 02  | Charging |     42% |
-| R003 | Delivery Drone 01 | Offline  |     89% |
+## Dashboard
 
-The robot data is currently simulated and is not connected to physical robots.
+The current RoboTrack frontend provides a command-center style dashboard containing:
+
+- Fleet Overview
+- Dashboard navigation
+- Robots section
+- Analytics section
+- Add Robot section
+- Settings section
+- System status indicator
+
+The dashboard UI is currently a frontend prototype. Robot information will be connected to the backend API in the next development stage.
+
+---
+
+## Robot Fleet
+
+The current robot fleet is simulated and stored in MongoDB.
+
+Example robot data:
+
+| Robot | Status | Battery |
+| ----- | ------ | ------: |
+| Robo-Alpha | Active | 85% |
+| Robo-Beta | Charging | 40% |
+| Robo-Gamma | Active | 72% |
+
+> The actual robot data may change as robots are added or updated in the database.
+
+---
 
 ## API
 
-### Get all robots
+### Get All Robots
 
 **Endpoint:**
 
-`GET /api/robots`
 
-**Example response:**
+GET /api/robots
 
-```json
+This endpoint returns robot information from the backend.
+
+Example response:
+
 [
   {
-    "id": "R001",
-    "name": "Warehouse Bot 01",
+    "name": "Robo-Alpha",
     "status": "Active",
     "battery": 85
   },
   {
-    "id": "R002",
-    "name": "Warehouse Bot 02",
+    "name": "Robo-Beta",
     "status": "Charging",
-    "battery": 42
+    "battery": 40
   },
   {
-    "id": "R003",
-    "name": "Delivery Drone 01",
-    "status": "Offline",
-    "battery": 89
+    "name": "Robo-Gamma",
+    "status": "Active",
+    "battery": 72
   }
 ]
-```
 
-## Project Structure
+Additional API endpoints will be added as CRUD functionality is implemented.
 
-```text
+Project Architecture
+
+The current application follows a basic full-stack architecture:
+
+                    RoboTrack
+                        |
+             ┌──────────┴──────────┐
+             │                     │
+        React Frontend        Express Backend
+             │                     │
+             │                REST API
+             │                     │
+             └──────────┬──────────┘
+                        │
+                     MongoDB
+                        │
+                 Robot Documents
+
+The planned architecture will eventually include real-time communication and robot simulation:
+
+                    RoboTrack
+                        |
+             ┌──────────┴──────────┐
+             │                     │
+        React Frontend        Node/Express API
+             │                     │
+             │                 MongoDB
+             │                     │
+             └──────────┬──────────┘
+                        │
+                    Socket.IO
+                        │
+                Robot Simulation
+                        │
+                  Python / IoT
+                        │
+                 Physical Robots
+Project Structure
 RoboTrack/
 │
 ├── backend/
 │   ├── server.js
+│   ├── models/
+│   ├── routes/
 │   ├── package.json
 │   └── ...
 │
 ├── frontend/
-│   └── ...
+│   ├── public/
+│   ├── src/
+│   │   ├── assets/
+│   │   ├── components/
+│   │   │   └── Sidebar.jsx
+│   │   │
+│   │   ├── pages/
+│   │   │   └── Dashboard.jsx
+│   │   │
+│   │   ├── App.jsx
+│   │   ├── App.css
+│   │   ├── index.css
+│   │   └── main.jsx
+│   │
+│   ├── package.json
+│   └── vite.config.js
 │
 ├── README.md
 └── .gitignore
-```
 
-> The project structure will evolve as the frontend, database, and real-time communication layers are added.
+The project structure will continue to evolve as new features are added.
 
-## Getting Started
+Getting Started
+Prerequisites
 
-### 1. Clone the repository
+Make sure the following are installed:
 
-```bash
+Node.js
+npm
+MongoDB
+MongoDB Compass
+Git
+1. Clone the repository
 git clone <your-repository-url>
 cd RoboTrack
-```
-
-### 2. Install backend dependencies
-
-```bash
+2. Install backend dependencies
 cd backend
 npm install
-```
-
-### 3. Start the backend server
-
-```bash
+3. Start the backend server
 node server.js
-```
 
-The server should start on:
+The backend server runs on:
 
-```text
 http://localhost:5000
-```
+4. Test the backend API
 
-### 4. Test the API
+Open:
 
-Open the following endpoint in your browser or API testing tool:
-
-```text
 http://localhost:5000/api/robots
-```
 
-You should receive the simulated robot fleet data as JSON.
+You should receive the robot fleet data as JSON.
 
-## Technologies
+5. Install frontend dependencies
 
-### Current
+Open a new terminal and navigate to the frontend:
 
-* Node.js
-* Express.js
-* JavaScript
-* REST API
-* Git
-* GitHub
+cd frontend
+npm install
+6. Start the React frontend
+npm run dev
 
-### Planned
+Vite will provide a local development URL, usually:
 
-* React.js
-* MongoDB
-* Mongoose
-* Socket.IO
-* Python
-* IoT / Robotics integration
+http://localhost:5173
 
-## Project Goal
+Open the URL in your browser to view the RoboTrack dashboard.
 
-The goal of this project is to build a complete robot fleet management system that can monitor multiple robots from a centralized dashboard.
+Technologies
+Frontend
+React
+Vite
+JavaScript
+Lucide React
+CSS
+Backend
+Node.js
+Express.js
+REST API
+Database
+MongoDB
+Mongoose
+MongoDB Compass
+Development Tools
+Visual Studio Code
+Git
+GitHub
+npm
+Planned Technologies
+Socket.IO
+Python
+IoT / Robotics integration
+Development Roadmap
+ Initialize Git repository
+ Set up GitHub repository
+ Initialize Node.js backend
+ Set up Express server
+ Create robot API
+ Add simulated robot data
+ Add multiple robots to the fleet
+ Connect backend to MongoDB
+ Store robot data in MongoDB
+ Initialize React frontend
+ Set up Vite
+ Create initial dashboard layout
+ Add sidebar navigation
+ Add dashboard command-center interface
+ Add system status indicator
+ Connect React frontend to backend API
+ Display live MongoDB robot data in React
+ Create reusable robot components
+ Implement CRUD operations
+ Add robot creation form
+ Add robot editing
+ Add robot deletion
+ Add robot location tracking
+ Add fleet statistics
+ Add analytics and data visualization
+ Add real-time communication with Socket.IO
+ Add Python-based robot simulation
+ Integrate real robot/IoT data
+ Deploy RoboTrack
+Project Goal
 
-The project will gradually evolve from simulated data into a system capable of handling dynamic and real-time robot information.
+The goal of RoboTrack is to build a complete robot fleet management system capable of monitoring and managing multiple robots from a centralized dashboard.
 
-## Learning Objectives
+The project is being developed progressively, starting with simulated robot data and a database-backed REST API before introducing CRUD operations, real-time communication, robot simulation, and eventually real robot/IoT data.
+
+Learning Objectives
 
 Through this project, I am learning and applying:
 
-* Full-stack web development
-* REST API development
-* Backend development with Node.js and Express
-* Frontend development with React
-* Database management with MongoDB
-* Real-time communication
-* Git and GitHub workflows
-* Robotics and IoT concepts
-* System architecture and API integration
+Full-stack web development
+REST API development
+Backend development with Node.js and Express
+Frontend development with React
+Component-based UI development
+Database management with MongoDB
+API integration
+CRUD operations
+Real-time communication
+Git and GitHub workflows
+System architecture
+Dashboard development
+Data visualization
+Robotics and IoT concepts
+Author
 
-## Development Roadmap
-
-* [x] Initialize Git repository
-* [x] Set up GitHub repository
-* [x] Initialize Node.js backend
-* [x] Set up Express server
-* [x] Create robot API
-* [x] Add simulated robot data
-* [x] Add third robot to the fleet
-* [ ] Build React frontend
-* [ ] Connect frontend to backend API
-* [ ] Add MongoDB
-* [ ] Implement CRUD operations
-* [ ] Add real-time communication
-* [ ] Add robot simulation
-* [ ] Add fleet analytics
-* [ ] Improve dashboard UI
-* [ ] Integrate real robot/IoT data
-
-## Author
-
-**Gowda Sameeksha Manohar**
+Gowda Sameeksha Manohar
 
 BCA - Robotics, Artificial Intelligence, Virtual Reality
 
